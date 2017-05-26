@@ -1,0 +1,8 @@
+﻿  Parser.cpp
+  Generating Code...
+d:\programy\tkom\tkom\parser.cpp(165): warning C4715: 'Parser::parseType': not all control paths return a value
+d:\programy\tkom\tkom\parser.cpp(201): warning C4715: 'Parser::parseIdentifier': not all control paths return a value
+  Skipping... (no relevant changes detected)
+  TKOM.cpp
+  TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.exe
+  TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.pdb (Full PDB)

@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="File Reader">
+      <UniqueIdentifier>{44c0f4a8-0f51-4596-bf7e-1481ac05a4a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Token">
+      <UniqueIdentifier>{918c36a8-920f-44af-a0d7-3eb686f663d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Lexer">
+      <UniqueIdentifier>{0cc2082e-4c78-4e95-85f7-8863ed7e953d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{0c5196be-ab15-4b76-9d0f-a7dc7f725173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Parser">
+      <UniqueIdentifier>{f8fdcb7f-299c-4222-bd0d-4267b27240a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ErrorPrinter">
+      <UniqueIdentifier>{4fb7ecba-a10b-4118-84a0-afbcccebb20f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>File Reader</Filter>
+    </ClInclude>
+    <ClInclude Include="Token.h">
+      <Filter>Token</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h">
+      <Filter>Token</Filter>
+    </ClInclude>
+    <ClInclude Include="Lexer.h">
+      <Filter>Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.h">
+      <Filter>Token</Filter>
+    </ClInclude>
+    <ClInclude Include="data\node.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\IfStat.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Program.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Assignment.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Cond.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Declaration.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Expression.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\ForLoop.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\SimpleCond.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\WhileLoop.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\Variable.h">
+      <Filter>Data</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="ErrorPrinter.h">
+      <Filter>ErrorPrinter</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TKOM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>File Reader</Filter>
+    </ClCompile>
+    <ClCompile Include="Lexer.cpp">
+      <Filter>Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="ErrorPrinter.cpp">
+      <Filter>ErrorPrinter</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
