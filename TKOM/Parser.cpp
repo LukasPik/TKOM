@@ -55,29 +55,23 @@ void Parser::getMain(Node * tree)
 	Token token2;
 
 	if (token.type != Type::Type)
-	{
-		//// error
-	}
+		this->errorHandler("Type", token);
+
 	token = lexer.nextToken();
 
 	if (token.type != Type::Identifier)
-	{
-		//error
-	}
+		this->errorHandler("Identifier", token);
+
 	token = lexer.nextToken();
 	token2 = lexer.nextToken();
-	if (token.type != Type::ParenthesisOpen && token2.type != Type::ParenthesisClose)
-	{
-		//error
-	}
+	if (token.type != Type::ParenthesisOpen) //&& token2.type != Type::ParenthesisClose)
+		this->errorHandler("Parenthesis Open", token);
+	if(token2.type != Type::ParenthesisClose)
+		this->errorHandler("Parenthesis Close", token2);
 
 	token = lexer.nextToken();
 	if (token.type != Type::BracketOpen)
-	{
-		//error
-	}
-
-
+		this->errorHandler("Bracket Open", token);
 
 }
 
@@ -97,33 +91,34 @@ Node * Parser::parseLine()
 	switch (act.type)
 	{
 	case Type::Identifier :
-		node = parseIdentifier();		//dziala
+		node = parseIdentifier();		
 		break;
-	case Type::If:						//dziala
+	case Type::If:						
 		node = parseIfStatement();
 		break;
 
-	case Type::Type :					// dziala
+	case Type::Type :					
 		node = parseType();
 		break;
 
 	case Type::Decrementation :
 	case Type::Incrementation :
-		node = parseCrementation();		//dziala
+		node = parseCrementation();		
 		break;
 
-	case Type::For :					// dziala
+	case Type::For :				
 		node = parseFor();
 		break;
 
-	case Type::While :					// dziala
+	case Type::While :					
 		node = parseWhile();
 		break;
 
-	case Type::BracketClose :			// dziala
-		//nextToken();
+	case Type::BracketClose :			
 		return nullptr;
 		break;
+	default:
+		this->errorHandler("One of instructions", act);
 	}
 	std::cout << node->getString() << std::endl;
 	return node;
@@ -137,9 +132,7 @@ Node * Parser::parseType()
 
 	nextToken();
 	if (act.type != Type::Identifier)
-	{
-		//error
-	}
+		this->errorHandler("Identifier", act);
 
 	node->name = act.value;
 	nextToken();
@@ -158,9 +151,7 @@ Node * Parser::parseType()
 		return assig;
 	}
 	else
-	{
-		//error unexpected token
-	}
+		this->errorHandler("", act);
 
 }
 
@@ -188,7 +179,7 @@ Node * Parser::parseIdentifier()
 		nextToken();
 		if (act.type != Type::Semicolon)
 		{
-			//blad
+			this->errorHandler("Semicolon", act);
 		}
 
 
@@ -196,7 +187,7 @@ Node * Parser::parseIdentifier()
 	}
 	else
 	{
-		//error unexpected token
+		this->errorHandler("", act);
 	}
 }
 
@@ -206,7 +197,7 @@ Node * Parser::parseExpression()
 	nextToken();
 	if (act.type == Type::Semicolon)
 	{
-		// error unexpected token
+		this->errorHandler("Semicolon", act);
 	}
 
 	while (act.type != Type::Semicolon)
@@ -226,7 +217,7 @@ Node * Parser::parseIfStatement()
 	nextToken();
 	if (act.type != Type::ParenthesisOpen)
 	{
-		//expected Parenthesis Open
+		this->errorHandler("Parenthesis Open", act);
 	}
 
 	Cond *cond;
@@ -234,17 +225,16 @@ Node * Parser::parseIfStatement()
 	std::cout << cond->getString() << "          ";
 	node->condition = cond;
 
-	//nextToken();
 	if (act.type != Type::ParenthesisClose)
 	{
-		//expected Parenthesis Open
+		this->errorHandler("Parenthesis Close", act);
 	}
 
 
 	nextToken();
 	if (act.type != Type::BracketOpen)
 	{
-		// error expected {
+		this->errorHandler("Bracket open", act);
 	}
 
 	Node * lastNode;
@@ -331,7 +321,6 @@ Node* Parser::parseCond()
 		Node *node = parseCond();
 		cond->addCond(node);
 
-		//nextToken();
 		if (act.type == Type::ParenthesisClose)
 		{
 			dynamic_cast<Cond*>(node)->inBrackets = true;
@@ -348,13 +337,13 @@ Node* Parser::parseCond()
 				}
 				else
 				{
-					//missing condition after and, or
+					this->errorHandler("Condition after || or &&", act);
 				}
 			}
 		}
 		else
 		{
-			//missing parent close
+			this->errorHandler("Parenthesis close", act);
 		}
 
 	}
@@ -368,14 +357,13 @@ Node* Parser::parseCond()
 		{
 			Token *token = new Token(act);
 			cond->addOperator(token);
-			//nextToken();
 			if (last = parseCond())
 			{
 				cond->addCond(last);
 			}
 			else
 			{
-				//missing condition after and, or
+				this->errorHandler("Condition after || or &&", act);
 			}
 		}
 		
@@ -389,7 +377,6 @@ Node * Parser::parseSimpleCond()
 {
 	SimpleCond *cond = new SimpleCond();
 	std::cout << "Started simple" << std::endl;
-	//nextToken();
 	if (act.type == Type::ParenthesisClose || act.type == Type::Semicolon)
 	{
 		return nullptr;
@@ -427,12 +414,11 @@ Node * Parser::parseSimpleCond()
 		{
 			//nextToken();
 		}
-		else
+		else if (act.type != Type::ParenthesisClose)
 		{
-			//unexpected token
+			this->errorHandler("condition statement", act);
 		}		
 	}
-	std::cout << "Created simple" << std::endl;
 
 	return cond;
 }
@@ -449,14 +435,11 @@ Node * Parser::parseCrementation()
 		else
 			node->crement = 2;
 		nextToken();
-		if (act.type != Type::Semicolon)
-		{
-			// blad
-		}
+	
 	}
 	else
 	{
-		//expected Identifier;
+		this->errorHandler("Identifier", act);
 	}
 
 
@@ -470,12 +453,12 @@ Node * Parser::parseFor()
 	nextToken();
 	if (act.type != Type::ParenthesisOpen)
 	{
-		//expected parent open
+		this->errorHandler("Parenthesis open", act);
 	}
 	nextToken();
 	if (act.type != Type::Identifier)
 	{
-		//expected parent open
+		this->errorHandler("Identifier", act);
 	}
 	Variable *var = new Variable();
 	var->name = act.value;
@@ -485,16 +468,15 @@ Node * Parser::parseFor()
 	nextToken();
 	if (act.type != Type::Semicolon)
 	{
-		//expected parent open
+		this->errorHandler("Semicolon", act);
 	}
 
 	Cond *cond = dynamic_cast<Cond*>(parseCond());
 	node->setLoopCond(cond);
 
-	//nextToken();
 	if (act.type != Type::Semicolon)
 	{
-		//expected parent open
+		this->errorHandler("Semicolon", act);
 	}
 	nextToken();
 
@@ -511,18 +493,18 @@ Node * Parser::parseFor()
 	}
 	else
 	{
-		//error
+		this->errorHandler("End expression of loop", act);
 	}
 
 	//nextToken();
 	if (act.type != Type::ParenthesisClose)
 	{
-		//expected parent open
+		this->errorHandler("Parenthesis open", act);
 	}
 	nextToken();
 	if (act.type != Type::BracketOpen)
 	{
-		//expected parent open
+		this->errorHandler("Bracket open", act);
 	}
 
 	Node *last;
@@ -541,7 +523,7 @@ Node * Parser::parseWhile()
 	nextToken();
 	if (act.type != Type::ParenthesisOpen)
 	{
-		//expected parent open
+		this->errorHandler("Parenthesis open", act);
 	}
 	//nextToken();
 
@@ -550,12 +532,12 @@ Node * Parser::parseWhile()
 	//nextToken();
 	if (act.type != Type::ParenthesisClose)
 	{
-		//expected parent open
+		this->errorHandler("Parenthesis close", act);
 	}
 	nextToken();
 	if (act.type != Type::BracketOpen)
 	{
-		//expected parent open
+		this->errorHandler("Bracket open", act);
 	}
 
 	Node *last;
@@ -576,9 +558,9 @@ void Parser::nextToken()
 
 void Parser::errorHandler(std::string error, const Token & token)
 {
-	//errorPrinter("Parser", token, error);
-
-
+	std::cout << "In line: " << token.line << " position: " << token.pos << std::endl;
+	std::cout << "Unexpected token: " << getTypeName(token.type) << ". Expected: " << error << std::endl;
+	exit(0);
 }
 
 

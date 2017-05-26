@@ -26,7 +26,6 @@ public:
 		for (auto &it : exprList)
 		{
 			std::cout << getTypeName(it->type) << " " ;
-			//std::cout << " test ";
 		}
 		std::cout << std::endl;
 	}
