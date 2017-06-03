@@ -64,7 +64,7 @@ void Parser::getMain(Node * tree)
 
 	token = lexer.nextToken();
 	token2 = lexer.nextToken();
-	if (token.type != Type::ParenthesisOpen) //&& token2.type != Type::ParenthesisClose)
+	if (token.type != Type::ParenthesisOpen)
 		this->errorHandler("Parenthesis Open", token);
 	if(token2.type != Type::ParenthesisClose)
 		this->errorHandler("Parenthesis Close", token2);
@@ -330,7 +330,6 @@ Node* Parser::parseCond()
 			{
 				Token *token = new Token(act);
 				cond->addOperator(token);
-				//nextToken();
 				if (last = parseCond())
 				{
 					cond->addCond(last);
@@ -525,11 +524,9 @@ Node * Parser::parseWhile()
 	{
 		this->errorHandler("Parenthesis open", act);
 	}
-	//nextToken();
 
 	node->condition = dynamic_cast<Cond*>(parseCond());
 
-	//nextToken();
 	if (act.type != Type::ParenthesisClose)
 	{
 		this->errorHandler("Parenthesis close", act);
@@ -585,4 +582,9 @@ void Parser::debug()
 	{
 		std::cout << "[ " << it->getString() << " ]" << std::endl;
 	}
+}
+
+Program * Parser::getTree()
+{
+	return this->tree;
 }

@@ -14,13 +14,13 @@ int main()
     {
         if((asd > 5) && (b == 0 || a < 0))
         {
-            asd--;
-	    ++asd;
-            asd -= 2;
-
-            asd = 5 + 2 - 3;
-
+            
         }
+	mnb--;
+	    ++zxc;
+            qwe -= 2;
+
+            asd = 5 + aw - 3;
 
     }
 

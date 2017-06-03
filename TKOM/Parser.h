@@ -15,6 +15,9 @@ public:
 	Parser(Lexer &lexer);
 	Program *parse();
 	void debug();
+
+	Program *getTree();
+
 private:
 	Program *tree;
 	Lexer &lexer;

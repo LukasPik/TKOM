@@ -80,6 +80,8 @@ class varTab
 public:
 	Variable var;
 	bool changing = false;
+	bool isSet = false;
+
 
 	varTab(Variable *var)
 	{

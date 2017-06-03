@@ -4,6 +4,7 @@
 #include "main.h"
 #include "Token.h"
 #include "Parser.h"
+#include "Optymalizator.h"
 
 int main()
 {
@@ -11,27 +12,17 @@ int main()
 	//Lexer lexer2("test.c");
 	bool flag = true;
 	Token token;
-	int val = 0;
-/*	while (flag)
-	{
-		//++val;
-		token = lexer.nextToken();
 
-		//std::cout <<"Main: "<< token.value << std::endl;
-		if (token.value == "End")
-			flag = false;
-
-		if (val > 60)
-			break;
-	} */
 	Parser parser(lexer);
 	parser.parse();
 	//parser.debug();
+	Optymalizator opt(parser.getTree());
+	opt.optymalize();
+
+
+
 	std::cout << "Done" << std::endl;
 
-	//while (true) {}
-	int a;
-	//std::cin >> a;
 	return 0;
 
 }

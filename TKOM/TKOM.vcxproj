@@ -161,6 +161,7 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Lexer.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="Optymalizator.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="ErrorPrinter.cpp" />
     <ClCompile Include="FileReader.cpp" />
     <ClCompile Include="Lexer.cpp" />
+    <ClCompile Include="Optymalizator.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

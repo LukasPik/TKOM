@@ -31,6 +31,9 @@
     <Filter Include="ErrorPrinter">
       <UniqueIdentifier>{4fb7ecba-a10b-4118-84a0-afbcccebb20f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Optymalizator">
+      <UniqueIdentifier>{93779eec-41fb-49c5-8cbc-865bc2eaccd9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -99,6 +102,9 @@
     <ClInclude Include="ErrorPrinter.h">
       <Filter>ErrorPrinter</Filter>
     </ClInclude>
+    <ClInclude Include="Optymalizator.h">
+      <Filter>Optymalizator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -118,6 +124,9 @@
     </ClCompile>
     <ClCompile Include="ErrorPrinter.cpp">
       <Filter>ErrorPrinter</Filter>
+    </ClCompile>
+    <ClCompile Include="Optymalizator.cpp">
+      <Filter>Optymalizator</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

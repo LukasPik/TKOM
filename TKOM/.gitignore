@@ -1,0 +1,10 @@
+Debug/*
+
+*.log
+*.tlog
+*.idb
+*.pdb
+*.vcxproj
+*.filters
+*.obj
+*.opendb
