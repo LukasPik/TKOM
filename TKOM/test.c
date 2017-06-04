@@ -6,7 +6,8 @@ int main()
     for(a ; a < 2 ; ++a)
     {
         b += 5;
-        a -= 6;
+        d -= 6;
+	int c;
     }
 
     double asd = 10.0;
@@ -17,10 +18,10 @@ int main()
             
         }
 	mnb--;
-	    ++zxc;
-            qwe -= 2;
-
-            asd = 5 + aw - 3;
+	++zxc;
+        qwe -= 2;
+        asd = 5 - 3;
+	int a = 5 + 6 + qwe;
 
     }
 

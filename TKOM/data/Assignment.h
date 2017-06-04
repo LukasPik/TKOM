@@ -38,6 +38,6 @@ public:
 		}
 	}
 
-
+	token::Type assigType;
 	std::vector<Node*> list;
 };

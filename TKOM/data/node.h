@@ -75,15 +75,16 @@ public:
 
 #include "Variable.h"
 
-class varTab
+class VarTab
 {
 public:
 	Variable var;
 	bool changing = false;
 	bool isSet = false;
+	bool isDecl = false;
 
 
-	varTab(Variable *var)
+	VarTab(Variable *var)
 	{
 		this->var.name = var->name;
 		this->var.type = var->type;

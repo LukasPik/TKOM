@@ -27,7 +27,7 @@ Program* Parser::parse()
 		syntaxTree->addNode(lastNode);
 		if (lastNode->getType() == Node::Type::Declaration )
 		{
-			varTab var(dynamic_cast<Declaration*>(lastNode)->getVar());
+			VarTab var(dynamic_cast<Declaration*>(lastNode)->getVar());
 			syntaxTree->addVar(var);
 		}
 		else if (lastNode->getType() == Node::Type::Assignment)
@@ -35,7 +35,7 @@ Program* Parser::parse()
 			Assignment *assigNode = dynamic_cast<Assignment*>(lastNode);
 			if (assigNode->getVar()->type != "")
 			{
-				varTab var(assigNode->getVar());
+				VarTab var(assigNode->getVar());
 				syntaxTree->addVar(var);
 			}
 		}
@@ -164,6 +164,7 @@ Node * Parser::parseIdentifier()
 	if (isAcceptable(act, { Type::Assigment, Type::PlusEqual, Type::MinusEqual }))
 	{
 		Assignment *assig = new Assignment();
+		assig->assigType = act.type;
 		assig->setVar(node);
 		assig->addNode(this->parseExpression());
 

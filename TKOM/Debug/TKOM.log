@@ -1,14 +1,9 @@
-﻿  TKOM.cpp
-d:\programy\tkom\tkom\optymalizator.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Parser.cpp
-  Optymalizator.cpp
+﻿  Optymalizator.cpp
 d:\programy\tkom\tkom\optymalizator.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 d:\programy\tkom\tkom\optymalizator.cpp(15): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(37): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(62): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(86): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-d:\programy\tkom\tkom\parser.cpp(156): warning C4715: 'Parser::parseType': not all control paths return a value
-d:\programy\tkom\tkom\parser.cpp(192): warning C4715: 'Parser::parseIdentifier': not all control paths return a value
+d:\programy\tkom\tkom\optymalizator.cpp(42): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(84): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(125): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(208): warning C4018: '<': signed/unsigned mismatch
   TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.exe
   TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.pdb (Full PDB)

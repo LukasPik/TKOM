@@ -3,7 +3,7 @@
 #include "node.h"
 #include <iostream>
 #include <vector>
-class varTab;
+class VarTab;
 
 class Program : public Node
 {
@@ -15,7 +15,7 @@ public:
 		this->list.push_back(node);
 	}
 
-	void addVar(varTab &var)
+	void addVar(VarTab &var)
 	{
 		varList.push_back(var);
 	}
@@ -44,5 +44,5 @@ public:
 	}
 
 	std::vector<Node*> list = {};
-	std::vector<varTab> varList;
+	std::vector<VarTab> varList;
 };

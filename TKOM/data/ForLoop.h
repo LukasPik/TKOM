@@ -3,7 +3,7 @@
 
 class Variable;
 class Cond;
-class varTab;
+class VarTab;
 
 class ForLoop : public Node
 {
@@ -52,7 +52,7 @@ public:
 		return Type::ForLoop;
 	}
 
-	void addVar(varTab &var)
+	void addVar(VarTab &var)
 	{
 		varList.push_back(var);
 	}
@@ -71,5 +71,5 @@ public:
 
 	
 	std::vector<Node*> list;
-	std::vector<varTab> varList;
+	std::vector<VarTab> varList;
 };
