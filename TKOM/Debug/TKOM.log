@@ -1,9 +1,10 @@
 ﻿  Optymalizator.cpp
 d:\programy\tkom\tkom\optymalizator.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
 d:\programy\tkom\tkom\optymalizator.cpp(15): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(42): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(84): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(125): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(208): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(75): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(150): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(227): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(321): warning C4018: '<': signed/unsigned mismatch
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.exe
   TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.pdb (Full PDB)

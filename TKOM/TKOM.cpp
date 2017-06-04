@@ -18,6 +18,8 @@ int main()
 	//parser.debug();
 	Optymalizator opt(parser.getTree());
 	opt.optymalize();
+	std::cout << "=============Wyjsciowe drzewo==================" << std::endl;
+	opt.tree->showList(0);
 
 
 

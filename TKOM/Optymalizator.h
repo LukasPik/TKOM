@@ -11,13 +11,15 @@ public:
 	Optymalizator(Program* );
 
 	void optymalize();
-	void searchFor(std::vector<Node*> list, Variable *);
-	void searchWhile(std::vector<Node*> list);
-	void searchIf(std::vector<Node*> list);
-	void checkAssig(Node *, std::vector<VarTab*> &);
+	std::vector<Node *> searchFor(std::vector<Node*> &list, Variable *);
+	std::vector<Node *> searchWhile(std::vector<Node*> &list);
+	void searchIf(std::vector<Node*> &list);
+	bool checkAssig(Node *, std::vector<VarTab*> &);
 	void checkVar(Node * expr, std::vector<VarTab*> &list);
 	void checkDecl(Node *, std::vector<VarTab*> &);
+	void deleteFromChild(std::vector<Node*>, std::string );
 	void saveToFile();
+	void checkAgain(std::vector<Node*> , std::vector<VarTab*> &);
 
 
 
