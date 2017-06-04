@@ -29,6 +29,18 @@ public:
 		}
 	}
 
+	/*virtual std::string getCode(std::fstream &file, int x)
+	{
+		file << getSpaceFile(x);
+		file << "while(";
+		file << this->condition->getCode(file, x).append(")\n");
+		file << getSpaceFile(x).append("{\n");
+		for (auto &it : list)
+		{
+			it->getCode(file, x + 1);
+		}
+	}*/
+
 	std::vector<Node*> list;
 	Cond *condition;
 

@@ -42,6 +42,16 @@ public:
 			it->showList(x + 1);
 		}
 	}
+	//virtual std::string getCode(std::fstream &file, int x)
+	//{
+	//	file << "int main() \n{";
+	//	for (auto &it : list)
+	//	{
+	//		file << it->getCode(file, x + 1);
+	//	}
+	//	file << "}";
+	//}
+
 
 	std::vector<Node*> list = {};
 	std::vector<VarTab> varList;

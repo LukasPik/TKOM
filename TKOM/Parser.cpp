@@ -146,6 +146,7 @@ Node * Parser::parseType()
 	{
 		Assignment * assig = new Assignment();
 		assig->setVar(node);
+		assig->assigType = act.type;
 		assig->addNode(this->parseExpression());
 
 		return assig;

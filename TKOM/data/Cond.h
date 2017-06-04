@@ -31,6 +31,12 @@ public:
 		}
 	}
 
+	//virtual std::string getCode(std::fstream & file, int x)
+	//{
+	//	file << "Condition";
+	//}
+
+
 
 	bool inBrackets = false;
 	token::Type condOperator = token::Type::Undefined;

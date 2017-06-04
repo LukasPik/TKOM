@@ -69,6 +69,22 @@ public:
 		}
 	}
 
+	/*virtual std::string getCode(std::fstream &file, int x)
+	{
+		file << getSpaceFile(x);
+		file << "for(";
+		file << this->loopVar->name.append(" ; ");
+		file << this->loopCond->getCode(file, x).append(" ; ");
+		file << this->endExpr->getCode(file, x).append(")\n");
+		file << getSpaceFile(x).append("{\n");
+		for (auto &it : list)
+		{
+			it->getCode(file, x + 1);
+		}
+		file << getSpaceFile(x);
+		file << "}";
+	}*/
+
 	
 	std::vector<Node*> list;
 	std::vector<VarTab> varList;

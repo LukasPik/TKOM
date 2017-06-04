@@ -24,6 +24,12 @@ public:
 
 	}
 
+	//virtual std::string getCode(std::fstream &file, int x)
+	//{
+	//	file << getSpaceFile(x);
+	//	file << "Simple cond";
+	//}
+
 	bool inBrackets = false;
 	Token *condOperator;
 	Token *value1;

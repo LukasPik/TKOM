@@ -28,5 +28,19 @@ public:
 		}
 	}
 
+	//virtual std::string getCode(std::fstream &file, int x)
+	//{
+	//	file << getSpaceFile(x);
+	//	file << "if(";
+	//	file << this->condition->getCode(file, x).append(")\n");
+	//	file << getSpaceFile(x).append("{\n");
+	//	for (auto &it : content)
+	//	{
+	//		it->getCode(file, x + 1);
+	//	}
+	//	file << getSpaceFile(x).append("}");
+
+	//}
+
 	std::vector<Node*> content;
 };

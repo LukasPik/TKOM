@@ -28,12 +28,24 @@ public:
 	};
 	virtual Type getType() = 0;
 	virtual void showList(int ) = 0;
+	//virtual std::string getCode(std::fstream &, int) = 0;
+
 	void getSpace(int x)
 	{
 		while (x--)
 		{
 			std::cout << "\t";
 		}
+	}
+
+	std::string getSpaceFile(int x)
+	{
+		std::string toReturn = "";
+		while (x--)
+		{
+			toReturn.append("\t");
+		}
+		return toReturn;
 	}
 
 	std::string getString()
@@ -91,10 +103,11 @@ public:
 	}
 };
 
+#include "Expression.h"
 #include "Assignment.h"
 #include "Cond.h"
 #include "Declaration.h"
-#include "Expression.h"
+
 #include "ForLoop.h"
 #include "IfStat.h"
 #include "Program.h"

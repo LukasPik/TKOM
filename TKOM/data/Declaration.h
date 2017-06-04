@@ -30,5 +30,14 @@ public:
 
 	}
 
+	//virtual std::string getCode(std::fstream &file, int x)
+	//{
+	//	file << getSpaceFile(x);
+	//	file << this->var->type;
+	//	file << " ";
+	//	file << this->var->name;
+	//	file << ";\n";
+	//}
+
 
 };

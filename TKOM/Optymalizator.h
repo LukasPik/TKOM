@@ -17,10 +17,13 @@ public:
 	bool checkAssig(Node *, std::vector<VarTab*> &);
 	void checkVar(Node * expr, std::vector<VarTab*> &list);
 	void checkDecl(Node *, std::vector<VarTab*> &);
-	void deleteFromChild(std::vector<Node*>, std::string );
+	void deleteFromChild(Node *, std::string );
 	void saveToFile();
-	void checkAgain(std::vector<Node*> , std::vector<VarTab*> &);
+	std::vector<Node *> checkAgain(std::vector<Node*> , std::vector<VarTab*> &);
 
+	void saveFor(std::ifstream &, std::ofstream &, Node *, int);
+	void saveWhile(std::ifstream &, std::ofstream &, Node *, int);
+	void saveIf(std::ifstream &, std::ofstream &, Node *);
 
 
 

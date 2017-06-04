@@ -1,6 +1,8 @@
 #pragma once
 #include "stdafx.h"
 #include "Optymalizator.h"
+#include <fstream>
+#include <windows.h>
 
 Optymalizator::Optymalizator(Program *init)
 {
@@ -37,30 +39,32 @@ void Optymalizator::optymalize()
 				if (assig->getVar()->type != "")
 				{
 					std::cout << "Test";
-					bool isNew = false;
+					bool isNew = true;
 					for (auto it2 : this->tree->varList)
 					{
 						if (it2.var.name == assig->getVar()->name)
-						{
-							isNew = true;
-						}
+							isNew = false;
 					}
 					if (isNew)
 					{
-						std::cout << "##### insert to tree ##### ";
+						std::cout << "##### insert decl to tree ##### ";
+						assig->toAdd = true;
 						this->tree->list.insert(this->tree->list.begin() + i, it);
-						//this->deleteFromChild();
+						this->deleteFromChild(this->tree->list[i+1], assig->getVar()->name);
 					}
 				}
 				else
 				{
+					std::cout << "##### insert assig to tree ##### ";
+					assig->toAdd = true;
 					this->tree->list.insert(this->tree->list.begin() + i, it);
+					this->deleteFromChild(this->tree->list[i+1], assig->getVar()->name);
 				}
 
 			}
 		}
 	}
-
+	this->saveToFile();
 }
 
 std::vector<Node *> Optymalizator::searchFor(std::vector<Node*> &list, Variable *loopVar)
@@ -77,7 +81,7 @@ std::vector<Node *> Optymalizator::searchFor(std::vector<Node*> &list, Variable 
 		std::vector<Node*> toInsert = {};
 		if (list[i]->getType() == Node::Type::ForLoop)
 		{
-			auto pass = dynamic_cast<ForLoop*>(this->tree->list[i]);
+			auto pass = dynamic_cast<ForLoop*>(list[i]);
 			toInsert = this->searchFor(pass->list, pass->getLoopVar());
 		}
 		else if (list[i]->getType() == Node::Type::WhileLoop)
@@ -103,31 +107,51 @@ std::vector<Node *> Optymalizator::searchFor(std::vector<Node*> &list, Variable 
 
 		for (auto &it : toInsert)
 		{
+			std::cout << "Test " << std::endl;
 			if (it->getType() == Node::Type::Assignment)
 			{
 				Assignment *assig = dynamic_cast<Assignment*>(it);
+				std::cout << "Nazwa assig " << assig->getVar()->name << std::endl;
 				if (assig->getVar()->type != "")
 				{
-					bool isNew = false;
-					for (auto &it2 : variables)
+					std::cout << "Test";
+					bool isNew = true;
+					for (auto it2 : variables)
 					{
 						if (it2->var.name == assig->getVar()->name)
-						{
-							isNew = true;
-						}
+							isNew = false;
 					}
 					if (isNew)
 					{
-						list.insert(list.begin() + i , it);
-						//this->deleteFromChild();
+						std::cout << "##### insert decl to tree ##### ";
+						assig->toAdd = true;
+						VarTab *temp = new VarTab(assig->getVar());
+						temp->isDecl = true;
+						variables.push_back(temp);
+						list.insert(list.begin() + i, it);
+						this->deleteFromChild(list[i + 1], assig->getVar()->name);
 					}
+				}
+				else
+				{
+					std::cout << "##### insert assig to tree ##### ";
+					assig->toAdd = true;
+					VarTab *temp = new VarTab(assig->getVar());
+					variables.push_back(temp);
+					list.insert(list.begin() + i, it);
+					this->deleteFromChild(list[i +1], assig->getVar()->name);
 				}
 
 			}
 		}
 	}
 
-	this->checkAgain(list, variables);
+	auto temp = this->checkAgain(list, variables);
+	for (auto &x : temp)
+	{
+		toReturn.push_back(x);
+	}
+	
 
 	std::cout << "===============================" << std::endl;
 	for (auto &it : variables)
@@ -173,36 +197,46 @@ std::vector<Node *> Optymalizator::searchWhile(std::vector<Node*> &list)
 			this->checkVar(list[i], variables);
 		}
 
-
 		for (auto &it : toInsert)
 		{
+			std::cout << "Test " << std::endl;
 			if (it->getType() == Node::Type::Assignment)
 			{
 				Assignment *assig = dynamic_cast<Assignment*>(it);
+				std::cout << "Nazwa assig " << assig->getVar()->name << std::endl;
 				if (assig->getVar()->type != "")
 				{
-					bool isNew = false;
-					for (auto &it2 : variables)
+					std::cout << "Test";
+					bool isNew = true;
+					for (auto it2 : variables)
 					{
 						if (it2->var.name == assig->getVar()->name)
-						{
-							isNew = true;
-						}
+							isNew = false;
 					}
 					if (isNew)
 					{
+						std::cout << "##### insert decl to tree ##### ";
+						assig->toAdd = true;
+						VarTab *temp = new VarTab(assig->getVar());
+						temp->isDecl = true;
+						variables.push_back(temp);
 						list.insert(list.begin() + i, it);
-						//this->deleteFromChild();
+						this->deleteFromChild(list[i + 1], assig->getVar()->name);
 					}
+				}
+				else
+				{
+					std::cout << "##### insert assig to tree ##### ";
+					assig->toAdd = true;
+					VarTab *temp = new VarTab(assig->getVar());
+					variables.push_back(temp);
+					list.insert(list.begin() + i, it);
+					this->deleteFromChild(list[i + 1], assig->getVar()->name);
 				}
 
 			}
 		}
 	}
-
-	
-
-
 
 	std::cout << "===============================" << std::endl;
 	for (auto &it : variables)
@@ -212,11 +246,6 @@ std::vector<Node *> Optymalizator::searchWhile(std::vector<Node*> &list)
 
 		std::cout << "Zawartosc listy: " << it->var.name << std::endl;
 	}
-
-
-
-
-
 
 	return toReturn;
 }
@@ -252,7 +281,7 @@ bool Optymalizator::checkAssig(Node *expr, std::vector<VarTab*> &list)
 	if (assig->getVar()->type != "")
 	{
 		//typ (deklaracja + przypisanie)
-		elem->isDecl = true;
+ 		elem->isDecl = true;
 	}
 	else
 	{
@@ -339,17 +368,108 @@ void Optymalizator::checkVar(Node *expr, std::vector<VarTab*> &list)
 	}
 }
 
-
-void Optymalizator::deleteFromChild(std::vector<Node*>, std::string)
+//do zmiany
+void Optymalizator::deleteFromChild(Node* elem, std::string toDelete)
 {
+	ForLoop *forElem = nullptr;
+	WhileLoop *whileElem = nullptr;
+	std::vector<Node*> *list = nullptr;
+
+	std::cout << "Usuwawnie " << elem->getString();
+
+	if (elem->getType() == Node::Type::ForLoop)
+	{
+		forElem = dynamic_cast<ForLoop*>(elem);
+		list = &forElem->list;
+	}
+	else if (elem->getType() == Node::Type::WhileLoop)
+	{
+		whileElem = dynamic_cast<WhileLoop*>(elem);
+		list = &whileElem->list;
+	}
+	if (list == nullptr)
+		return;
+
+	for (int i = 0; i < list->size(); ++i)
+	{
+		if (list->at(i)->getType() == Node::Type::Assignment)
+		{
+			Assignment *assig = dynamic_cast<Assignment*>(list->at(i));
+			if (assig->getVar()->name == toDelete)
+			{
+				list->erase(list->begin() + i);
+			}
+		}
+	}
 }
 
 void Optymalizator::saveToFile()
 {
+	std::ifstream in("test.c");
+	std::ofstream out("out.c");
+	std::string tekst;
+	int i = 0;
+	getline(in, tekst);
+	std::cout <<std::endl << tekst << std::endl;
+	out << tekst << std::endl;
+	getline(in, tekst);
+	std::cout << tekst << std::endl;
+	out << tekst << std::endl;
+
+	while (getline(in, tekst)) 
+	{
+		if (tekst != "\n" && i < tree->list.size())
+		{
+
+			if (this->tree->list[i]->getType() == Node::Type::ForLoop)
+			{
+				std::cout << tekst << std::endl;
+				out << tekst << std::endl;
+				this->saveFor(in, out, this->tree->list[i], 1);
+				getline(in, tekst);
+			}
+			else if (this->tree->list[i]->getType() == Node::Type::WhileLoop)
+			{
+				std::cout << tekst << std::endl;
+				out << tekst << std::endl;
+				this->saveWhile(in, out, this->tree->list[i], 1);
+				getline(in, tekst);
+			}
+			else if (this->tree->list[i]->getType() == Node::Type::IfState)
+			{
+				std::cout << tekst << std::endl;
+				out << tekst << std::endl;
+				this->saveIf(in, out, this->tree->list[i]);
+				getline(in, tekst);
+			}
+			else if (this->tree->list[i]->getType() == Node::Type::Assignment)
+			{
+				
+				Assignment *assig = dynamic_cast<Assignment*>(tree->list[i]);
+				if (assig->toAdd)
+				{
+					std::cout << tekst << std::endl;
+					out << tekst << std::endl;
+					std::string temp = assig->getAssig(0);
+					std::cout << temp << std::endl;
+					out << temp << std::endl;
+					++i;
+					continue;
+				}
+			}
+			++i;
+		}
+		std::cout << tekst << std::endl;
+		out << tekst << std::endl;
+	}
+	in.close();
+	out.close();
+
 }
 
-void Optymalizator::checkAgain(std::vector<Node*> list, std::vector<VarTab*>& varList)
+std::vector<Node *> Optymalizator::checkAgain(std::vector<Node*> list, std::vector<VarTab*>& varList)
 {
+	std::vector<Node *> toReturn = {};
 	for (auto &it : list)
 	{
 		if (it->getType() == Node::Type::Assignment)
@@ -359,6 +479,7 @@ void Optymalizator::checkAgain(std::vector<Node*> list, std::vector<VarTab*>& va
 			{
 				if (!it2->isSet)
 				{
+					std::cout << "repeat+++++++++++++++++++++" << std::endl;
 					auto expr = dynamic_cast<Expression*>(assig->list[0]);
 					for (auto &itExpr : expr->exprList)
 					{
@@ -372,17 +493,169 @@ void Optymalizator::checkAgain(std::vector<Node*> list, std::vector<VarTab*>& va
 									break;
 								}
 							}
+							
 							break;
 						}
 					}
 					it2->isSet = true;
-				}
+					toReturn.push_back(it);
+				}				
 			}
 		}
 	}
 
 
+	return toReturn;
+}
+
+void Optymalizator::saveFor(std::ifstream &in, std::ofstream &out, Node *elem, int x)
+{
+	ForLoop *loop = dynamic_cast<ForLoop*>(elem);
+	std::vector<Node*> list = loop->list;
+	std::string text;
+	int  i = 0;
+	getline(in, text);
+	std::cout << text << std::endl;
+	out << text << std::endl;
+	getline(in, text);
+	std::cout << text << std::endl;
+	out << text << std::endl;
+
+	for (auto &it : loop->list)
+	{
+		getline(in, text);
+		if (text != "\n" && i < loop->list.size())
+		{
+			if (list[i]->getType() == Node::Type::ForLoop)
+			{
+				std::cout << text << std::endl;
+				out << text << std::endl;
+				this->saveFor(in, out, list[i], x+1);
+				getline(in, text);
+			}
+			else if(list[i]->getType() == Node::Type::WhileLoop)
+			{
+				std::cout << text << std::endl;
+				out << text << std::endl;
+				this->saveWhile(in, out, list[i], x+1);
+				getline(in, text);
+			}
+			else if(list[i]->getType() == Node::Type::IfState)
+			{
+				std::cout << text << std::endl;
+				out << text << std::endl;
+				this->saveIf(in, out, list[i]);
+				getline(in, text);
+			}
+			else if (list[i]->getType() == Node::Type::Assignment)
+			{
+				
+				Assignment *assig = dynamic_cast<Assignment*>(list[i]);
+				if (assig->toAdd)
+				{
+					std::string temp = assig->getAssig(x);
+					std::cout << temp << std::endl;
+					out << temp << std::endl;
+					std::cout << text << std::endl;
+					out << text << std::endl;
+					
+					++i;
+					continue;
+				}
+			}
+			++i;
+		}
+		std::cout << text << std::endl;
+		out << text << std::endl;
+
+
+	}
+
 
 }
+
+void Optymalizator::saveWhile(std::ifstream &in, std::ofstream &out, Node *elem, int x)
+{
+	WhileLoop *loop = dynamic_cast<WhileLoop*>(elem);
+	std::vector<Node*> list = loop->list;
+	std::string text;
+	int  i = 0;
+
+	getline(in, text);
+	std::cout << text << std::endl;
+	out << text << std::endl;
+
+	for (auto &it : loop->list)
+	{
+		getline(in, text);
+		if (text != "\n" && i < loop->list.size())
+		{
+			if (list[i]->getType() == Node::Type::ForLoop)
+			{
+				std::cout << text << std::endl;
+				out << text << std::endl;
+				this->saveFor(in, out, list[i], x + 1);
+				getline(in, text);
+			}
+			else if (list[i]->getType() == Node::Type::WhileLoop)
+			{
+				std::cout << text << std::endl;
+				out << text << std::endl;
+				this->saveWhile(in, out, list[i], x + 1);
+				getline(in, text);
+			}
+			else if (list[i]->getType() == Node::Type::IfState)
+			{
+				std::cout << text << std::endl;
+				out << text << std::endl;
+				this->saveIf(in, out, list[i]);
+				getline(in, text);
+			}
+			else if (list[i]->getType() == Node::Type::Assignment)
+			{
+
+				Assignment *assig = dynamic_cast<Assignment*>(list[i]);
+				if (assig->toAdd)
+				{
+					std::string temp = assig->getAssig(x);
+					std::cout << temp << std::endl;
+					out << temp << std::endl;
+					std::cout << text << std::endl;
+					out << text << std::endl;
+
+					++i;
+					continue;
+				}
+			}
+			++i;
+		}
+		std::cout << text << std::endl;
+		out << text << std::endl;
+
+
+	}
+
+}
+
+void Optymalizator::saveIf(std::ifstream &in, std::ofstream &out, Node *elem)
+{
+	IfStat *expr = dynamic_cast<IfStat*>(elem);
+	std::string text;
+
+	getline(in, text);
+	std::cout << text << std::endl;
+	out << text << std::endl;
+
+	for (auto &it : expr->content)
+	{
+		getline(in, text);
+		std::cout << text << std::endl;
+		out << text << std::endl;
+	}
+	getline(in, text);
+	std::cout << text << std::endl;
+	out << text << std::endl;
+}
+
 
 
