@@ -8,7 +8,11 @@
 
 int main()
 {
-	Lexer lexer("test.c");
+	std::string file;
+	std::cout << "Podaj nazwe pliku: " << std::endl;
+	std::cin >> file;
+
+	Lexer lexer(file);
 	//Lexer lexer2("test.c");
 	bool flag = true;
 	Token token;
@@ -16,7 +20,7 @@ int main()
 	Parser parser(lexer);
 	parser.parse();
 	//parser.debug();
-	Optymalizator opt(parser.getTree());
+	Optymalizator opt(parser.getTree(), file);
 	opt.optymalize();
 	std::cout << "=============Wyjsciowe drzewo==================" << std::endl;
 	opt.tree->showList(0);

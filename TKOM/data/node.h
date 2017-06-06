@@ -40,8 +40,9 @@ public:
 
 	std::string getSpaceFile(int x)
 	{
-		std::string toReturn = "";
-		while (x--)
+		std::string toReturn = "\t";
+		--x;
+		while (x-- > 0)
 		{
 			toReturn.append("\t");
 		}

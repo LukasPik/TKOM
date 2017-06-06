@@ -30,6 +30,8 @@ public:
 	virtual void showList(int x)
 	{
 		getSpace(x);
+		if (toDelete)
+			std::cout << "- ";
 		std::cout << this->getString() << " type: " << var->type ;
 		//var->showList(x);
 		for (auto &it : list)
@@ -42,6 +44,9 @@ public:
 	{
 		std::string text = "";
 		text.append(getSpaceFile(x));
+		if (toDelete)
+			text.append("- ");
+
 		text.append(this->var->getText());
 		switch (assigType)
 		{

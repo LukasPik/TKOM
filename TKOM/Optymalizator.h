@@ -5,10 +5,15 @@
 
 class Optymalizator
 {
+private:
+	std::string file;
+	bool toDelete(int);
+	std::vector<int> deleteTab;
+
 public:
 	Program *tree;
 
-	Optymalizator(Program* );
+	Optymalizator(Program* , std::string);
 
 	void optymalize();
 	std::vector<Node *> searchFor(std::vector<Node*> &list, Variable *);
