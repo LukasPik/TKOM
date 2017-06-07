@@ -44,8 +44,10 @@ public:
 	}
 	virtual void getCode(std::ofstream &file, int x)
 	{
-		std::cout << "int main() \n{ \n";
-		file << "int main() \n{\n";
+		std::cout << "\nint main() \n{ \n";
+		file << "\nint main() \n{\n";
+
+
 		for (auto &it : list)
 		{
 			it->getCode(file, x + 1);

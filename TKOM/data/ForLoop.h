@@ -62,7 +62,6 @@ public:
 		getSpace(x);
 		std::cout << this->getString() << " ";
 		std::cout << std::endl;
-		//loopVar->showList(x);
 		
 		for (auto &it : list)
 		{

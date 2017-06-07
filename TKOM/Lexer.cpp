@@ -47,7 +47,7 @@ Token Lexer::nextToken()
 		return token;
 	}
 
-	if (isalpha(sign))			//napisy
+	if (isalpha(sign))			//alphabetical characters
 	{
 		std::string buffer;
 
@@ -73,7 +73,7 @@ Token Lexer::nextToken()
 			token.value = buffer;
 		}
 	}
-	else if (isdigit(sign))		// liczby
+	else if (isdigit(sign))		// numbers
 	{
 		std::string buffer;
 
@@ -87,7 +87,7 @@ Token Lexer::nextToken()
 		token.type = Type::Number;
 		token.value = buffer;
 	}
-	else						// znaki specjalne
+	else						// special chars
 	{
 		switch (sign)
 		{

@@ -13,7 +13,6 @@ public:
 	}
 	virtual void showList(int x)
 	{
-		//getSpace(x);
 		if (crement)
 		{
 			getSpace(x);
@@ -50,7 +49,7 @@ public:
 
 	virtual void getCode(std::ofstream &file, int x)
 	{
-		std::string text = "";// getSpaceFile(x);
+		std::string text = "";
 		if (type != "")
 		{
 			text.append(type);

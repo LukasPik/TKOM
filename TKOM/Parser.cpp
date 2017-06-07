@@ -18,7 +18,7 @@ Program* Parser::parse()
 {
 	Program* syntaxTree = new Program();
 
-	this->getMain(syntaxTree);  // chyba do usuniecia prametr wywolania
+	this->getMain(syntaxTree); 
 
 	Node * lastNode;
 
@@ -33,11 +33,8 @@ Program* Parser::parse()
 		else if (lastNode->getType() == Node::Type::Assignment)
 		{
 			Assignment *assigNode = dynamic_cast<Assignment*>(lastNode);
-		//	if (assigNode->getVar()->type != "")
-		//	{
-				VarTab var(assigNode->getVar());
-				syntaxTree->addVar(var);
-		//	}
+			VarTab var(assigNode->getVar());
+			syntaxTree->addVar(var);
 		}
 	}
 	this->tree = syntaxTree;
@@ -205,7 +202,6 @@ Node * Parser::parseExpression()
 	while (act.type != Type::Semicolon)
 	{
 		Token *token = new Token(act);
-		// need validity check
 		expr->addExpr(token);
 		nextToken();
 	}
@@ -247,70 +243,6 @@ Node * Parser::parseIfStatement()
 
 	return node;
 }
-
-/*Node * Parser::parseCond()
-{
-	Cond *cond = new Cond();
-	nextToken();
-	if (act.type == Type::ParenthesisClose)
-	{
-		//error no condition
-	}
-	SimpleCond *last;
-
-	if (act.type == Type::ParenthesisOpen)
-	{
-		Node *node = parseCond();
-		nextToken();
-		if (act.type == Type::ParenthesisClose)
-		{
-			dynamic_cast<Cond*>(node)->inBrackets = true;
-
-		}
-		else
-		{
-			// no parent close
-		}
-		//cond->inBrackets = true;
-	}
-	
-
-	while (last = dynamic_cast<SimpleCond*>(this->parseSimpleCond()))
-	{
-		cond->addCond(last);
-		if (cond->inBrackets && !last->inBrackets)
-		{
-
-		}
-		//nextToken();
-		if (act.type == Type::And || act.type == Type::Or)
-		{
-			Token *token = new Token(act);
-			cond->addOperator(token);
-			nextToken();
-			if (act.type == Type::ParenthesisOpen)
-			{
-				Node *node = parseCond();
-				if (act.type == Type::ParenthesisClose)
-				{
-					dynamic_cast<Cond*>(node)->inBrackets = true;
-					cond->addCond(node);
-				}
-				else
-				{
-					// no parent close
-				}
-				//cond->inBrackets = true;
-			}
-
-		}
-		else
-			break;
-	}
-	
-	return cond;
-}
-*/
 
 
 Node* Parser::parseCond()
@@ -411,10 +343,6 @@ Node * Parser::parseSimpleCond()
 					cond->inBrackets = false;
 			}
 		}
-		else if (cond->inBrackets && act.type == Type::ParenthesisClose)
-		{
-			//nextToken();
-		}
 		else if (act.type != Type::ParenthesisClose)
 		{
 			this->errorHandler("condition statement", act);
@@ -481,8 +409,6 @@ Node * Parser::parseFor()
 	}
 	nextToken();
 
-//	Expression *expr = dynamic_cast<Expression*>(parseExpression()); //? chyba co innego trzeba. lub to zmienic
-//	node->setEndExpr(expr);
 	if (isAcceptable(act, { Type::Incrementation, Type::Decrementation }))
 	{
 		Node *expr = parseCrementation();
@@ -497,7 +423,6 @@ Node * Parser::parseFor()
 		this->errorHandler("End expression of loop", act);
 	}
 
-	//nextToken();
 	if (act.type != Type::ParenthesisClose)
 	{
 		this->errorHandler("Parenthesis open", act);
