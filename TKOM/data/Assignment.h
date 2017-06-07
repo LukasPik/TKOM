@@ -32,7 +32,7 @@ public:
 		getSpace(x);
 		if (toDelete)
 			std::cout << "- ";
-		std::cout << this->getString() << " type: " << var->type ;
+		std::cout << this->getString() << " type: " << var->type << " name " << var->name ;
 		//var->showList(x);
 		for (auto &it : list)
 		{

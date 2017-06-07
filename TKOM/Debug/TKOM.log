@@ -1,13 +1,5 @@
-﻿  Optymalizator.cpp
-d:\programy\tkom\tkom\optymalizator.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-d:\programy\tkom\tkom\optymalizator.cpp(29): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(92): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(188): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(280): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(374): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(417): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(453): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(587): warning C4018: '<': signed/unsigned mismatch
-d:\programy\tkom\tkom\optymalizator.cpp(677): warning C4018: '<': signed/unsigned mismatch
+﻿  Parser.cpp
+d:\programy\tkom\tkom\parser.cpp(157): warning C4715: 'Parser::parseType': not all control paths return a value
+d:\programy\tkom\tkom\parser.cpp(194): warning C4715: 'Parser::parseIdentifier': not all control paths return a value
   TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.exe
   TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.pdb (Full PDB)

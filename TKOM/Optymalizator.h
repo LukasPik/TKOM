@@ -24,6 +24,7 @@ public:
 	void checkDecl(Node *, std::vector<VarTab*> &);
 	void deleteFromChild(Node *, std::string );
 	void saveToFile();
+	bool checkSingle(VarTab *, std::vector<VarTab*> &);
 	std::vector<Node *> checkAgain(std::vector<Node*> , std::vector<VarTab*> &);
 
 	void saveFor(std::ifstream &, std::ofstream &, Node *, int);

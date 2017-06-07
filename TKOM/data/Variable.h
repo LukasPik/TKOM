@@ -30,11 +30,13 @@ public:
 	std::string getText()
 	{
 		std::string text = "";
-		text.append(this->name);
 		if (type != "")
 		{
-			text.append(type); 
+			text.append(type);
+			text.append(" ");
 		}
+		text.append(this->name);
+
 		if (crement == 1)
 		{
 			text.append( "++");

@@ -33,11 +33,11 @@ Program* Parser::parse()
 		else if (lastNode->getType() == Node::Type::Assignment)
 		{
 			Assignment *assigNode = dynamic_cast<Assignment*>(lastNode);
-			if (assigNode->getVar()->type != "")
-			{
+		//	if (assigNode->getVar()->type != "")
+		//	{
 				VarTab var(assigNode->getVar());
 				syntaxTree->addVar(var);
-			}
+		//	}
 		}
 	}
 	this->tree = syntaxTree;

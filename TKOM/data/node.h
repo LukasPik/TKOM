@@ -87,6 +87,8 @@ public:
 
 
 #include "Variable.h"
+#include "Expression.h"
+#include "Assignment.h"
 
 class VarTab
 {
@@ -95,6 +97,7 @@ public:
 	bool changing = false;
 	bool isSet = false;
 	bool isDecl = false;
+	Assignment *assig;
 
 
 	VarTab(Variable *var)
@@ -102,10 +105,17 @@ public:
 		this->var.name = var->name;
 		this->var.type = var->type;
 	}
+
+	VarTab(Variable *var, Assignment *assig)
+	{
+		this->var.name = var->name;
+		this->var.type = var->type;
+		this->assig = assig;
+	}
 };
 
-#include "Expression.h"
-#include "Assignment.h"
+
+
 #include "Cond.h"
 #include "Declaration.h"
 
