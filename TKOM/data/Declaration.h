@@ -30,14 +30,18 @@ public:
 
 	}
 
-	//virtual std::string getCode(std::fstream &file, int x)
-	//{
-	//	file << getSpaceFile(x);
-	//	file << this->var->type;
-	//	file << " ";
-	//	file << this->var->name;
-	//	file << ";\n";
-	//}
+	virtual void getCode(std::ofstream &file, int x)
+	{
+		std::string text = "";
+		text.append( getSpaceFile(x));
+		text.append( this->var->type);
+		text.append( " ");
+		text.append( this->var->name);
+		text.append( ";\n");
+
+		std::cout << text;
+		file << text;
+	}
 
 
 };

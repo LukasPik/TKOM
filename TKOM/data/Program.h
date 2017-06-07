@@ -42,15 +42,17 @@ public:
 			it->showList(x + 1);
 		}
 	}
-	//virtual std::string getCode(std::fstream &file, int x)
-	//{
-	//	file << "int main() \n{";
-	//	for (auto &it : list)
-	//	{
-	//		file << it->getCode(file, x + 1);
-	//	}
-	//	file << "}";
-	//}
+	virtual void getCode(std::ofstream &file, int x)
+	{
+		std::cout << "int main() \n{ \n";
+		file << "int main() \n{\n";
+		for (auto &it : list)
+		{
+			it->getCode(file, x + 1);
+		}
+		std::cout << "}";
+		file << "}";
+	}
 
 
 	std::vector<Node*> list = {};

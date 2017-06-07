@@ -391,15 +391,15 @@ Node * Parser::parseSimpleCond()
 
 	if (isAcceptable(act, {Type::Number, Type::Identifier}))
 	{
-		cond->value1 = &act;//new Token(act);
+		cond->value1 = new Token(act);
 		nextToken();
 		if (isAcceptable(act, { Type::Greater, Type::Equality, Type::GreaterEqual, Type::Less, Type::LessEqual, Type::Inequality }))
 		{
-			cond->condOperator = &act;//new Token(act);
+			cond->condOperator = new Token(act);
 			nextToken();
 			if (isAcceptable(act, { Type::Number, Type::Identifier }))
 			{
-				cond->value2 = &act;//new Token>(act);
+				cond->value2 = new Token(act);
 				if(cond->inBrackets)
 					nextToken();
 

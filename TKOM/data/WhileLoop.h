@@ -29,17 +29,37 @@ public:
 		}
 	}
 
-	/*virtual std::string getCode(std::fstream &file, int x)
+	virtual void getCode(std::ofstream &file, int x)
 	{
-		file << getSpaceFile(x);
-		file << "while(";
-		file << this->condition->getCode(file, x).append(")\n");
-		file << getSpaceFile(x).append("{\n");
+		std::string text = "";
+		text.append( getSpaceFile(x));
+		text.append( "while(");
+		std::cout << text;
+		file << text;
+		text = "";
+		this->condition->getCode(file, x);
+		text.append( ")\n");
+		text.append( getSpaceFile(x).append("{\n"));
+		std::cout << text;
+		file << text;
+
 		for (auto &it : list)
 		{
-			it->getCode(file, x + 1);
+			if (it->getType() == Type::Variable)
+			{
+				std::cout << getSpaceFile(x + 1);
+				file << getSpaceFile(x + 1);
+				it->getCode(file, x + 1);
+				std::cout << ";\n";
+				file << ";\n";
+			}
+			else
+				it->getCode(file, x + 1);
 		}
-	}*/
+		text = getSpaceFile(x).append("}\n");
+		std::cout << text;
+		file << text;
+	}
 
 	std::vector<Node*> list;
 	Cond *condition;

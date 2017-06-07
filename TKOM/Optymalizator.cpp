@@ -63,7 +63,7 @@ void Optymalizator::optymalize()
 						std::cout << "##### insert decl to tree ##### ";
 						assig->toAdd = true;
 						this->tree->list.insert(this->tree->list.begin() + i, it);
-						//this->deleteFromChild(this->tree->list[i+1], assig->getVar()->name);
+						this->deleteFromChild(this->tree->list[i+1], assig->getVar()->name);
 					}
 				}
 				else
@@ -71,7 +71,7 @@ void Optymalizator::optymalize()
 					std::cout << "##### insert assig to tree ##### ";
 					assig->toAdd = true;
 					this->tree->list.insert(this->tree->list.begin() + i, it);
-					//this->deleteFromChild(this->tree->list[i+1], assig->getVar()->name);
+					this->deleteFromChild(this->tree->list[i+1], assig->getVar()->name);
 				}
 
 			}
@@ -146,7 +146,7 @@ std::vector<Node *> Optymalizator::searchFor(std::vector<Node*> &list, Variable 
 						temp->isDecl = true;
 						variables.push_back(temp);
 						list.insert(list.begin() + i, it);
-						//this->deleteFromChild(list[i + 1], assig->getVar()->name);
+						this->deleteFromChild(list[i + 1], assig->getVar()->name);
 					}
 					else
 						continue;
@@ -158,7 +158,7 @@ std::vector<Node *> Optymalizator::searchFor(std::vector<Node*> &list, Variable 
 					VarTab *temp = new VarTab(assig->getVar(), assig);
 					variables.push_back(temp);
 					list.insert(list.begin() + i, it);
-					//this->deleteFromChild(list[i +1], assig->getVar()->name);
+					this->deleteFromChild(list[i +1], assig->getVar()->name);
 				}
 
 			}
@@ -192,7 +192,7 @@ std::vector<Node *> Optymalizator::searchWhile(std::vector<Node*> &list)
 	std::vector<VarTab*> variables;
 	std::vector<Node*> toReturn = {};
 
-	for (int i = 0; i < size; ++i)
+	for (int i = 0; i < list.size(); ++i)
 	{
 		std::vector<Node*> toInsert = {};
 		if (list[i]->getType() == Node::Type::ForLoop)
@@ -210,11 +210,16 @@ std::vector<Node *> Optymalizator::searchWhile(std::vector<Node*> &list)
 		}
 		else if (list[i]->getType() == Node::Type::Assignment)
 		{
-			if (this->checkAssig(list[i], variables))
-			{
-				std::cout << "Test push_back ";
-				toReturn.push_back(list[i]);
-			}
+			//if (this->checkAssig(list[i], variables))
+			//{
+			//	std::cout << "Test push_back ";
+			//	toReturn.push_back(list[i]);
+			//	}
+			Assignment *assig = dynamic_cast<Assignment*>(list[i]);
+			VarTab *newElem = new VarTab(assig->getVar(), assig);
+			variables.push_back(newElem);
+			std::cout << "Dodajemy: " << newElem->assig->getAssig(0) << std::endl;
+
 		}
 		else if (list[i]->getType() == Node::Type::Variable)
 		{
@@ -223,7 +228,6 @@ std::vector<Node *> Optymalizator::searchWhile(std::vector<Node*> &list)
 
 		for (auto &it : toInsert)
 		{
-			std::cout << "Test " << std::endl;
 			if (it->getType() == Node::Type::Assignment)
 			{
 				Assignment *assig = dynamic_cast<Assignment*>(it);
@@ -241,24 +245,27 @@ std::vector<Node *> Optymalizator::searchWhile(std::vector<Node*> &list)
 					{
 						std::cout << "##### insert decl to tree ##### ";
 						assig->toAdd = true;
-						VarTab *temp = new VarTab(assig->getVar());
+						VarTab *temp = new VarTab(assig->getVar(), assig);
 						temp->isDecl = true;
 						variables.push_back(temp);
 						list.insert(list.begin() + i, it);
-						//this->deleteFromChild(list[i + 1], assig->getVar()->name);
+						this->deleteFromChild(list[i + 1], assig->getVar()->name);
 					}
+					else
+						continue;
 				}
 				else
 				{
 					std::cout << "##### insert assig to tree ##### ";
 					assig->toAdd = true;
-					VarTab *temp = new VarTab(assig->getVar());
+					VarTab *temp = new VarTab(assig->getVar(), assig);
 					variables.push_back(temp);
 					list.insert(list.begin() + i, it);
-					//this->deleteFromChild(list[i + 1], assig->getVar()->name);
+					this->deleteFromChild(list[i + 1], assig->getVar()->name);
 				}
 
 			}
+			++i;
 		}
 	}
 
@@ -267,6 +274,7 @@ std::vector<Node *> Optymalizator::searchWhile(std::vector<Node*> &list)
 	{
 		toReturn.push_back(x);
 	}
+
 
 
 	std::cout << "===============================" << std::endl;
@@ -431,8 +439,8 @@ void Optymalizator::deleteFromChild(Node* elem, std::string toDelete)
 				assig->toDelete = true;
 				int x = dynamic_cast<Expression*>(assig->list[0])->exprList[0]->line;
 				std::cout << "Dodajemy do tablicy: " << x << std::endl;
-				deleteTab.push_back(dynamic_cast<Expression*>(assig->list[0])->exprList[0]->line);
-				//list->erase(list->begin() + i);
+				//deleteTab.push_back(dynamic_cast<Expression*>(assig->list[0])->exprList[0]->line);
+				list->erase(list->begin() + i);
 			}
 		}
 	}
@@ -453,81 +461,87 @@ void Optymalizator::saveToFile()
 	getline(in, text);
 	std::cout << text << std::endl;
 	out << text << std::endl;
+	getline(in, text);
 
-
-
-	while(getline(in, text))
+	for (auto &it : tree->list)
 	{
-		if ( text != "\n" && text != "" && i < tree->list.size())
-		{
-
-			if (this->tree->list[i]->getType() == Node::Type::ForLoop)
-			{
-				//std::cout << tekst << std::endl;
-				///out << tekst << std::endl;
-			//	getline(in, tekst);
-				if (wasAdded)
-				{
-					in.seekg(prevPos);
-					wasAdded = false;
-				}
-				else 
-				{
-					std::cout << text << std::endl;
-					out << text << std::endl;
-				}
-				this->saveFor(in, out, this->tree->list[i], 1);
-				getline(in, text);
-			}
-			else if (this->tree->list[i]->getType() == Node::Type::WhileLoop)
-			{
-				if (wasAdded)
-				{
-					in.seekg(prevPos);
-					wasAdded = false;
-				}
-				else
-				{
-					std::cout << text << std::endl;
-					out << text << std::endl;
-				}
-				this->saveWhile(in, out, this->tree->list[i], 1);
-				getline(in, text);
-			}
-			else if (this->tree->list[i]->getType() == Node::Type::IfState)
-			{
-				std::cout << text << std::endl;
-				out << text << std::endl;
-				this->saveIf(in, out, this->tree->list[i]);
-				getline(in, text);
-			}
-			else if (this->tree->list[i]->getType() == Node::Type::Assignment)
-			{
-				
-				Assignment *assig = dynamic_cast<Assignment*>(tree->list[i]);
-				if (assig->toAdd)
-				{
-					std::string temp = assig->getAssig(0);
-					std::cout << temp << std::endl;
-					out << temp << std::endl;
-					if (this->tree->list[i + 1]->getType() != Node::Type::Assignment)
-					{
-						std::cout << text << std::endl;
-						out << text << std::endl;	
-						prevPos = in.tellg();
-					}
-					assig->toDelete = true;
-					assig->toAdd = false;
-					++i;
-					wasAdded = true;
-					continue;
-				}
-			}
-			++i;
-		}
-		std::cout << text << std::endl;
-		out << text << std::endl;
+		it->getCode(out, 0);
 	}
+	std::cout << "\n}\n";
+	out << "\n}\n";
+
+/*	//while(getline(in, text))
+	//{
+	//	if ( text != "\n" && text != "" && i < tree->list.size())
+	//	{
+
+	//		if (this->tree->list[i]->getType() == Node::Type::ForLoop)
+	//		{
+	//			//std::cout << tekst << std::endl;
+	//			///out << tekst << std::endl;
+	//		//	getline(in, tekst);
+	//			if (wasAdded)
+	//			{
+	//				in.seekg(prevPos);
+	//				wasAdded = false;
+	//			}
+	//			else 
+	//			{
+	//				std::cout << text << std::endl;
+	//				out << text << std::endl;
+	//			}
+	//			this->saveFor(in, out, this->tree->list[i], 1);
+	//			getline(in, text);
+	//		}
+	//		else if (this->tree->list[i]->getType() == Node::Type::WhileLoop)
+	//		{
+	//			if (wasAdded)
+	//			{
+	//				in.seekg(prevPos);
+	//				wasAdded = false;
+	//			}
+	//			else
+	//			{
+	//				std::cout << text << std::endl;
+	//				out << text << std::endl;
+	//			}
+	//			this->saveWhile(in, out, this->tree->list[i], 1);
+	//			getline(in, text);
+	//		}
+	//		else if (this->tree->list[i]->getType() == Node::Type::IfState)
+	//		{
+	//			std::cout << text << std::endl;
+	//			out << text << std::endl;
+	//			this->saveIf(in, out, this->tree->list[i]);
+	//			getline(in, text);
+	//		}
+	//		else if (this->tree->list[i]->getType() == Node::Type::Assignment)
+	//		{
+	//			
+	//			Assignment *assig = dynamic_cast<Assignment*>(tree->list[i]);
+	//			if (assig->toAdd)
+	//			{
+	//				std::string temp = assig->getAssig(0);
+	//				std::cout << temp << std::endl;
+	//				out << temp << std::endl;
+	//				if (this->tree->list[i + 1]->getType() != Node::Type::Assignment)
+	//				{
+	//					std::cout << text << std::endl;
+	//					out << text << std::endl;	
+	//					prevPos = in.tellg();
+	//				}
+	//				assig->toDelete = true;
+	//				assig->toAdd = false;
+	//				++i;
+	//				wasAdded = true;
+	//				continue;
+	//			}
+	//		}
+	//		++i;
+	//	}
+	//	std::cout << text << std::endl;
+	//	out << text << std::endl;
+	//}*/
 	in.close();
 	out.close();
 

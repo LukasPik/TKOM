@@ -28,19 +28,28 @@ public:
 		}
 	}
 
-	//virtual std::string getCode(std::fstream &file, int x)
-	//{
-	//	file << getSpaceFile(x);
-	//	file << "if(";
-	//	file << this->condition->getCode(file, x).append(")\n");
-	//	file << getSpaceFile(x).append("{\n");
-	//	for (auto &it : content)
-	//	{
-	//		it->getCode(file, x + 1);
-	//	}
-	//	file << getSpaceFile(x).append("}");
+	virtual void getCode(std::ofstream &file, int x)
+	{
+		std::string text = "";
+		text.append( getSpaceFile(x));
+		text.append( "if(");
+		std::cout << text;
+		file << text;
+		text = " ";
+		this->condition->getCode(file, x);
+		text.append( ")\n");
+		text.append( getSpaceFile(x).append("{\n"));
+		std::cout << text;
+		file << text;
+		for (auto &it : content)
+		{
+			it->getCode(file, x + 1);
+		}
+		text = getSpaceFile(x).append("}\n");
+		std::cout << text;
+		file << text;
 
-	//}
+	}
 
 	std::vector<Node*> content;
 };

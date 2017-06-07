@@ -31,10 +31,40 @@ public:
 		}
 	}
 
-	//virtual std::string getCode(std::fstream & file, int x)
-	//{
-	//	file << "Condition";
-	//}
+	virtual void getCode(std::ofstream &file, int x)
+	{
+		std::string text = "";
+		if (inBrackets)
+		{
+			std::cout << "(";
+			file << "(";
+		}
+		for (int i = 0; i < conditions.size() ; ++i)
+		{
+			conditions[i]->getCode(file, x);
+			if (i < condOper.size())
+			{
+				switch (condOper[i]->type)
+				{
+				case token::Type::And :
+					text.append( " && ");
+					break;
+				case token::Type::Or :
+					text.append( " || ");
+					break;
+				}
+				std::cout << text;
+				file << text;
+				text = "";
+			}
+		}
+		text = "";
+		if (inBrackets)
+			text.append( ")");
+
+		std::cout << text;
+		file << text;
+	}
 
 
 

@@ -24,11 +24,50 @@ public:
 
 	}
 
-	//virtual std::string getCode(std::fstream &file, int x)
-	//{
-	//	file << getSpaceFile(x);
-	//	file << "Simple cond";
-	//}
+	virtual void getCode(std::ofstream &file, int x)
+	{
+		std::string text = "";
+		if (inBrackets)
+			text.append( "(");
+
+		text.append( value1->value);
+		if (condOperator != nullptr)
+		{
+			switch (condOperator->type)
+			{
+			case token::Type::And:
+				text.append( " && ");
+				break;
+			case token::Type::Or:
+				text.append( " || ");
+				break;
+			case token::Type::Equality:
+				text.append( " == ");
+				break;
+			case token::Type::Inequality:
+				text.append( " != ");
+				break;
+			case token::Type::GreaterEqual:
+				text.append( " >= ");
+				break;
+			case token::Type::LessEqual:
+				text.append( " <= ");
+				break;
+			case token::Type::Greater:
+				text.append( " > ");
+				break;
+			case token::Type::Less:
+				text.append( " < ");
+				break;
+			}
+			text.append( value2->value);
+		}
+		if (inBrackets)
+			text.append( ")");
+
+		std::cout << text;
+		file << text;
+	}
 
 	bool inBrackets = false;
 	Token *condOperator;

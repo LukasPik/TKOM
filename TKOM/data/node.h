@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <iostream>
+#include <fstream>
 #include <string>
 
 
@@ -28,7 +29,7 @@ public:
 	};
 	virtual Type getType() = 0;
 	virtual void showList(int ) = 0;
-	//virtual std::string getCode(std::fstream &, int) = 0;
+	virtual void getCode(std::ofstream &, int) = 0;
 
 	void getSpace(int x)
 	{
@@ -40,11 +41,10 @@ public:
 
 	std::string getSpaceFile(int x)
 	{
-		std::string toReturn = "\t";
-		--x;
+		std::string toReturn = "   ";
 		while (x-- > 0)
 		{
-			toReturn.append("\t");
+			toReturn.append("   ");
 		}
 		return toReturn;
 	}
@@ -114,17 +114,21 @@ public:
 	}
 };
 
-
-
-#include "Cond.h"
+#include "SimpleCond.h"
 #include "Declaration.h"
-
+#include "Cond.h"
 #include "ForLoop.h"
 #include "IfStat.h"
-#include "Program.h"
-#include "SimpleCond.h"
-
 #include "WhileLoop.h"
+
+#include "Program.h"
+
+
+
+
+
+
+
 
 
 

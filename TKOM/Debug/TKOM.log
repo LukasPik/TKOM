@@ -1,4 +1,27 @@
-﻿  Parser.cpp
+﻿  Optymalizator.cpp
+d:\programy\tkom\tkom\data\cond.h(42): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\data\cond.h(45): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\programy\tkom\tkom\optymalizator.cpp(29): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(92): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(195): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(295): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(389): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(432): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(634): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(689): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(693): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.cpp(783): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  TKOM.cpp
+d:\programy\tkom\tkom\data\cond.h(42): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\data\cond.h(45): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\optymalizator.h(4): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Parser.cpp
+d:\programy\tkom\tkom\data\cond.h(42): warning C4018: '<': signed/unsigned mismatch
+d:\programy\tkom\tkom\data\cond.h(45): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
 d:\programy\tkom\tkom\parser.cpp(157): warning C4715: 'Parser::parseType': not all control paths return a value
 d:\programy\tkom\tkom\parser.cpp(194): warning C4715: 'Parser::parseIdentifier': not all control paths return a value
   TKOM.vcxproj -> D:\Programy\TKOM\Debug\TKOM.exe

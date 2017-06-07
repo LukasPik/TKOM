@@ -61,29 +61,43 @@ public:
 	{
 		getSpace(x);
 		std::cout << this->getString() << " ";
+		std::cout << std::endl;
 		//loopVar->showList(x);
 		
 		for (auto &it : list)
 		{
 			it->showList(x + 1);
 		}
+		std::cout << std::endl;
 	}
 
-	/*virtual std::string getCode(std::fstream &file, int x)
+	virtual void getCode(std::ofstream &file, int x)
 	{
-		file << getSpaceFile(x);
-		file << "for(";
-		file << this->loopVar->name.append(" ; ");
-		file << this->loopCond->getCode(file, x).append(" ; ");
-		file << this->endExpr->getCode(file, x).append(")\n");
-		file << getSpaceFile(x).append("{\n");
+		std::string text = "";
+		text.append( getSpaceFile(x));
+		text.append( "for( ");
+		text.append( this->loopVar->name.append(" ; "));
+		std::cout << text;
+		file << text;
+		text = "";
+		this->loopCond->getCode(file, x);
+		text.append( " ;");
+		std::cout << text;
+		file << text;
+		text = "";
+		this->endExpr->getCode(file, x);
+		text.append( ")\n");
+		text.append( getSpaceFile(x).append("{\n"));
+		std::cout << text;
+		file << text;
 		for (auto &it : list)
 		{
 			it->getCode(file, x + 1);
 		}
-		file << getSpaceFile(x);
-		file << "}";
-	}*/
+		text = getSpaceFile(x).append("}\n");
+		std::cout << text;
+		file << text;
+	}
 
 	
 	std::vector<Node*> list;

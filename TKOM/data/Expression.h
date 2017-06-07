@@ -30,6 +30,37 @@ public:
 		std::cout << std::endl;
 	}
 
+	virtual void getCode(std::ofstream &file, int x)
+	{
+		std::string text = "";
+		for (auto &it : exprList)
+		{
+			switch (it->type)
+			{
+			case token::Type::Minus:
+				file << " - ";
+				text.append(" - ");
+				break;
+			case token::Type::Plus:
+				file << " + ";
+				text.append(" + ");
+				break;
+			case token::Type::Multiply:
+				file << " * ";
+				text.append(" * ");
+				break;
+			case token::Type::Divide:
+				file << " / ";
+				text.append(" / ");
+				break;
+			default:
+				file << it->value;
+				text.append(it->value);
+			}
+		}
+		
+	}
+
 	std::string getText()
 	{
 		std::string text = "";
