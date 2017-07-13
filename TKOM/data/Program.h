@@ -52,7 +52,7 @@ public:
 		{
 			it->getCode(file, x + 1);
 		}
-		std::cout << "}";
+		std::cout << "}\n";
 		file << "}";
 	}
 

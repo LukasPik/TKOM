@@ -14,9 +14,8 @@ Optymalizator::Optymalizator(Program *init, std::string file)
 
 void Optymalizator::optymalize()
 {
-	size_t size = this->tree->list.size();
 	std::vector<Node*> toInsert = {};
-	for (int i = 0; i < size; ++i) 
+	for (int i = 0; i < this->tree->list.size(); ++i)
 	{
 		toInsert.clear();
 		if (this->tree->list[i]->getType() == Node::Type::ForLoop)
@@ -343,8 +342,6 @@ void Optymalizator::saveToFile()
 
 	this->tree->getCode(out, 0);
 
-	std::cout << "\n}\n";
-	out << "\n}\n";
 
 	in.close();
 	out.close();
@@ -369,15 +366,25 @@ bool Optymalizator::checkSingle(VarTab *elem, std::vector<VarTab*>& varList)
 			if (it->type == Type::Identifier)
 			{
 				isSetted = false;
+				bool isInTable = false;
 				for (auto &it2 : varList)
 				{
 					if (it2->var.name == it->value && it2->isSet)
 					{
-						elem->changing = it2->changing;
+						if(!elem->changing)
+							elem->changing = it2->changing;
+
 						elem->isSet = true;
-						break;
+					}
+					else if (it2->var.name == it->value)
+					{
+						isInTable = true;
+						elem->isSet = false;
 					}
 				}
+				if (!elem->isSet && !isInTable)
+					elem->isSet = true;
+
 			}
 		}
 		if (isSetted && !elem->isSet)
@@ -392,8 +399,12 @@ bool Optymalizator::checkSingle(VarTab *elem, std::vector<VarTab*>& varList)
 std::vector<Node *> Optymalizator::checkChangeStatus(std::vector<Node*> list, std::vector<VarTab*>& varList)
 {
 	bool isWork = true;
-	while (isWork)
-	{
+	int i = 0;
+	
+
+	while (isWork && i < 50)
+	{	
+		++i;
 		for (int i = 0 ; i < varList.size() ; ++i)
 		{
 			if (varList[i]->isSet)
@@ -421,12 +432,11 @@ std::vector<Node *> Optymalizator::checkChangeStatus(std::vector<Node*> list, st
 				isWork = true;
 		}
 	}
-
 	
 	std::vector<Node*> toReturn = {};
 	for (auto it : varList)
 	{
-		if (!it->changing)
+		if (!it->changing && it->isSet)
 			toReturn.push_back(it->assig);
 	}
 
